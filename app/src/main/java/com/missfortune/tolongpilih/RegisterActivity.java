@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
             postData.put("username", username.getText());
             postData.put("password", password.getText());
 
-            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.API_TEST, postData.toString());
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.TEST, postData.toString());
             String result = serverHandler.get();
 
             if(!result.equalsIgnoreCase("success")){
