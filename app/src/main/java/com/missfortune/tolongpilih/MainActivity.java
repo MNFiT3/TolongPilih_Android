@@ -1,8 +1,6 @@
 package com.missfortune.tolongpilih;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(this, LoginActivity.class));
-
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame_container, new wheel());
-        transaction.commit();
+        //startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, WheelActivity.class));
     }
 }
