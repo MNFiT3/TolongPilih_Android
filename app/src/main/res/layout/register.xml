@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/registerEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
@@ -61,10 +61,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/registerEmail" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/registerUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/registerPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
@@ -107,7 +107,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
 
     <Button
         android:id="@+id/btnreg"
@@ -118,10 +118,11 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="27dp"
         android:layout_marginRight="27dp"
+        android:onClick="registerUser"
         android:text="Register"
         app:layout_constraintEnd_toStartOf="@+id/btnhome"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPassword" />
 
     <Button
         android:id="@+id/btnhome"
@@ -136,6 +137,6 @@
         android:text="Home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnreg"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
