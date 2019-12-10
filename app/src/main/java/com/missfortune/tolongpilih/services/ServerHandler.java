@@ -3,6 +3,9 @@ package com.missfortune.tolongpilih.services;
 import android.os.AsyncTask;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
+
+import com.missfortune.tolongpilih.config.Globals;
+
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,8 +15,6 @@ import java.net.URL;
 //https://stackoverflow.com/questions/35390928/how-to-send-json-object-to-the-server-from-my-android-app
 
 public class ServerHandler extends AsyncTask<String, Void, String> {
-    private static final String ENDPOINT = "http://10.0.2.2:3001/api/tolongpilih/test";
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... params) {

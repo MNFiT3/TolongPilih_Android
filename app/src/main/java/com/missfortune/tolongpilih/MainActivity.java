@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.missfortune.tolongpilih.config.Globals;
 import com.missfortune.tolongpilih.services.ServerHandler;
 import com.missfortune.tolongpilih.services.Session;
 
@@ -17,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     Session session;
     ServerHandler serverHandler;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,21 +28,18 @@ public class MainActivity extends AppCompatActivity {
 
         JSONObject postData = new JSONObject();
         try {
-            postData.put("name", "21313");
-            postData.put("address", "23123");
-            postData.put("manufacturer", "233123");
-            postData.put("location", "3213");
-            postData.put("type", "421");
-            postData.put("deviceID", "1231");
+            postData.put("username", "21313");
+            postData.put("email", "23123");
+            postData.put("password", "233123");
 
-            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute("http://10.0.2.2:3001/api/tolongpilih/test", postData.toString());
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + "/tolongpilih/test", postData.toString());
             String temp = serverHandler.get();
 
             JSONObject result = new JSONObject(temp);
             String strPostData = result.getString("PostData");
 
             JSONObject data = new JSONObject(strPostData);
-            String name = data.getString("name");
+            String name = data.getString("username");
 
             TextView txt01 = findViewById(R.id.txt01);
             txt01.setText(name);
