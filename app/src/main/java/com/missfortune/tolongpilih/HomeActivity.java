@@ -78,6 +78,13 @@ public class HomeActivity extends AppCompatActivity {
                 return;
             }
 
+            if(result.getInt("code") == 401) {
+                new Toast(this).makeText(this, "Session Expired", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                return;
+            }
+
             JSONArray array = new JSONArray(result.getString("body"));
 
             for(int i = 0; i < array.length(); i++){
