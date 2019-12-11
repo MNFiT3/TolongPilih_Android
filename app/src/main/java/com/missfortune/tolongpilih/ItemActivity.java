@@ -34,6 +34,8 @@ public class ItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_activity);
 
+
+
         itemListView = findViewById(R.id.itemListItem);
         itemList = new ArrayList<>();
 
