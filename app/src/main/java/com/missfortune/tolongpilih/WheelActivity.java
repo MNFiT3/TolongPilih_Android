@@ -11,6 +11,8 @@ import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.missfortune.tolongpilih.config.Globals;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,11 +40,12 @@ public class WheelActivity extends AppCompatActivity {
 
         //https://gist.github.com/wesleyduff/403fc3a24f5a0f4508ef0e5f55a95ae9
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl("file:///android_asset/" + FILENAME);
         webView.setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url){
                 //Passing data to JS function
-                webView.loadUrl("javascript:onLoad('" + groupId + "', '" + token + "')");
+                webView.loadUrl("javascript:onLoad('" + groupId + "', '" + token + ", '" + Globals.API_ENDPOINT + "')");
             }
         });
     }
