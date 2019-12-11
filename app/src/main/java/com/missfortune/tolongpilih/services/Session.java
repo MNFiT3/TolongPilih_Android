@@ -14,18 +14,22 @@ public class Session {
         editor = sharedPreferences.edit();
     }
 
-    public void isLoggedIn(boolean isLogged, String userEmail, String token){
+    public void setLoggedIn(boolean isLogged, String userEmail, String token){
         editor.putBoolean("loggedInMode", isLogged);
         editor.putString("userEmail", userEmail);
         editor.putString("token", token);
         editor.commit();
     }
 
-    public boolean loggedIn() {
+    public boolean isLoggedIn() {
         return sharedPreferences.getBoolean("loggedInMode", false);
     }
 
     public String userEmail() {
         return sharedPreferences.getString("userEmail", "");
+    }
+
+    public String userToken() {
+        return sharedPreferences.getString("token", "");
     }
 }
