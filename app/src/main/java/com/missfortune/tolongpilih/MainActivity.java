@@ -14,7 +14,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Uncomment one code below to jump to an activity
 
-        startActivity(new Intent(this, LoginActivity.class)); //LoginActivity
+        //startActivity(new Intent(this, LoginActivity.class)); //LoginActivity
         //startActivity(new Intent(this, WheelActivity.class)); //WheelActivity
+        //startActivity(new Intent(this, ItemActivity.class)); //ItemActivity
+        startActivity(new Intent(this, GroupActivity.class)); //GroupActivity
     }
 }

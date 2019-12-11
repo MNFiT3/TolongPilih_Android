@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.missfortune.tolongpilih.config.Globals;
 import com.missfortune.tolongpilih.services.ServerHandler;
+import com.missfortune.tolongpilih.services.Session;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
+    Session session;
     ServerHandler serverHandler;
     EditText email, password;
 
@@ -27,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginUser(View v) {
+        session = new Session(getApplicationContext());
         serverHandler = new ServerHandler();
 
         email = findViewById(R.id.loginEmail);
@@ -47,7 +50,10 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            new Toast(this).makeText(this, "Successfully loggedin", Toast.LENGTH_LONG).show();
+            new Toast(this).makeText(this, "Successfully logged in", Toast.LENGTH_LONG).show();
+
+            JSONObject data = new JSONObject(result.getString("body"));
+            session.setLoggedIn(true, data.getString("email"), data.getString("token"));
             //startActivity(new Intent(this, DashboardActivity.class));
             //finish();
 
