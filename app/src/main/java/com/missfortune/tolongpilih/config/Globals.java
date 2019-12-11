@@ -12,6 +12,7 @@ public class Globals {
     public static String INVITE_USER    = "/tolongpilih/group/invite";
     public static String ADD_ITEM       = "/tolongpilih/group/item/add";
     public static String REMOVE_ITEM    = "/tolongpilih/group/item/remove";
+    public static String LIST_ITEM    = "/tolongpilih/group/item/list";
     public static String TOLONGPILIH    = "/tolongpilih";
 
     //Route: auth

@@ -1,24 +1,22 @@
-const _endpoint = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api";
-
-class ServerController {
+class ServerHandlerService {
 
     httpGet = (url, callback) => {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
                 try{
-                    setToken(this)
+                    //setToken(this)
                     callback(null, JSON.parse(this));
                 }catch{
                     callback(null, this);
                 }
             }else{
                 if(this.status == 401){
-                    window.location.href = 'error.html?c=401'
+                    
                 }
             }
         };
-        xmlhttp.open("GET", _endpoint + url, true);
+        xmlhttp.open("GET", API_ENDPOINT + url, true);
         xmlhttp.setRequestHeader('auth', getToken())
         xmlhttp.send();
     }
@@ -27,20 +25,21 @@ class ServerController {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
-                console.log(this.response)
-                try{
-                    setToken(this)
-                    callback(null, JSON.parse(this));
-                }catch{
-                    callback(null, this);
-                }
+                // console.log(this.response)
+                // try{
+                //     //setToken(this)
+                //     callback(null, JSON.parse(this));
+                // }catch{
+                //     callback(null, this);
+                // }
+                callback(null, this)
             }else{
                 if(this.status == 401){
-                    window.location.href = 'error.html?c=401'
+                    
                 }
             }
         };
-        xmlhttp.open("POST", _endpoint + url, true);
+        xmlhttp.open("POST", API_ENDPOINT + url, true);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.setRequestHeader('auth', getToken())
         xmlhttp.send(JSON.stringify(json));
@@ -70,4 +69,4 @@ const jsonForm = (formData) => {
     return json;
 }
 
-const serv = new ServerController();
+const serv = new ServerHandlerService();

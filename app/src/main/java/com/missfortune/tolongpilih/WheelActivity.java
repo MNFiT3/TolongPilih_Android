@@ -34,10 +34,12 @@ public class WheelActivity extends AppCompatActivity {
     Button addItem, addMember, leaveGroup;
     String token, groupId;
     Session session;
+    JSONObject dataToWeb;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        dataToWeb = new JSONObject();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wheel_activity);
 
@@ -50,17 +52,23 @@ public class WheelActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
 
-        groupId = bundle.getString("groupId");
-        token = bundle.getString("token");
+        try{
+            groupId = bundle.getString("groupId");
+            token = bundle.getString("token");
+        }catch (Exception e){
+            startActivity(new Intent(this, HomeActivity.class));
+        }
 
+        loadItems();
 
         //https://gist.github.com/wesleyduff/403fc3a24f5a0f4508ef0e5f55a95ae9
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl("file:///android_asset/" + FILENAME);
         webView.setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url){
                 //Passing data to JS function
-                webView.loadUrl("javascript:onLoad('" + groupId + "', '" + token + "')");
+                webView.loadUrl("javascript:onLoad('" + dataToWeb.toString()  + "')");
             }
         });
 
@@ -68,6 +76,55 @@ public class WheelActivity extends AppCompatActivity {
         addMember = (Button)findViewById(R.id.addMember);
         leaveGroup = (Button)findViewById(R.id.leaveGroup);
 
+    }
+
+    private void loadItems() {
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("groupId", groupId);
+
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.LIST_ITEM, postData.toString(), token);
+            JSONObject result = serverHandler.get();
+
+            if(result.getInt("code") >= 300) {
+                new Toast(this).makeText(this, result.getString("body"), Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if(result.getInt("code") == 401) {
+                new Toast(this).makeText(this, "Session Expired", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                return;
+            }
+
+            JSONObject jsonObject = new JSONObject(result.getString("body"));
+            JSONArray jsonArray = jsonObject.getJSONArray("list");
+
+            JSONArray arr1 = new JSONArray();
+            try {
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject obj1 = new JSONObject();
+                    String temp = jsonArray.get(i).toString();
+                    obj1.put("label", temp);
+                    obj1.put("value", 1);
+                    arr1.put(obj1);
+                }
+
+                dataToWeb.put("list", arr1);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -82,6 +139,7 @@ public class WheelActivity extends AppCompatActivity {
         intent.putExtra("groupId", groupId);
         intent.putExtra("token", token);
         startActivity(intent);
+        finish();
     }
 
     public void member (View v){
@@ -90,6 +148,7 @@ public class WheelActivity extends AppCompatActivity {
         intent.putExtra("groupId", groupId);
         intent.putExtra("token", token);
         startActivity(intent);
+        finish();
     }
 
     public void leave (View v){
@@ -98,5 +157,6 @@ public class WheelActivity extends AppCompatActivity {
         intent.putExtra("groupId", groupId);
         intent.putExtra("token", token);
         startActivity(intent);
+        finish();
     }
 }
