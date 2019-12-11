@@ -1,5 +1,8 @@
 package com.missfortune.tolongpilih.entity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class User {
     private String id;
     private String email;
@@ -55,6 +58,22 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", this.id);
+            jsonObject.put("email", this.email);
+            jsonObject.put("username", this.username);
+            jsonObject.put("role", this.role);
+            jsonObject.put("token", this.token);
+
+            return jsonObject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
