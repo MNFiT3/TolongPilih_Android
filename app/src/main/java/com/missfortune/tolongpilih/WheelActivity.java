@@ -100,10 +100,11 @@ public class WheelActivity extends AppCompatActivity {
 
             JSONObject jsonObject = new JSONObject(result.getString("body"));
             JSONArray jsonArray = jsonObject.getJSONArray("list");
-            JSONObject obj1 = new JSONObject();
+
             JSONArray arr1 = new JSONArray();
             try {
                 for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject obj1 = new JSONObject();
                     String temp = jsonArray.get(i).toString();
                     obj1.put("label", temp);
                     obj1.put("value", 1);
@@ -138,6 +139,7 @@ public class WheelActivity extends AppCompatActivity {
         intent.putExtra("groupId", groupId);
         intent.putExtra("token", token);
         startActivity(intent);
+        finish();
     }
 
     public void member (View v){
@@ -146,6 +148,7 @@ public class WheelActivity extends AppCompatActivity {
         intent.putExtra("groupId", groupId);
         intent.putExtra("token", token);
         startActivity(intent);
+        finish();
     }
 
     public void leave (View v){
@@ -154,5 +157,6 @@ public class WheelActivity extends AppCompatActivity {
         intent.putExtra("groupId", groupId);
         intent.putExtra("token", token);
         startActivity(intent);
+        finish();
     }
 }
