@@ -37,15 +37,17 @@ public class LoginActivity extends AppCompatActivity {
             postData.put("email", email.getText());
             postData.put("password", password.getText());
 
-            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.TEST, postData.toString());
-            String result = serverHandler.get();
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.LOGIN, postData.toString());
+            JSONObject result = serverHandler.get();
 
-            if(!result.equalsIgnoreCase("success")){
-                new Toast(this).makeText(this, "Error Occurred", Toast.LENGTH_LONG).show();
+            if(result.getInt("code") != 200) {
+                new Toast(this).makeText(this, result.getString("body"), Toast.LENGTH_LONG).show();
                 return;
             }
 
-            new Toast(this).makeText(this, result, Toast.LENGTH_LONG).show();
+            new Toast(this).makeText(this, "Successfully loggedin", Toast.LENGTH_LONG).show();
+            //startActivity(new Intent(this, DashboardActivity.class));
+            //finish();
 
         } catch (JSONException e) {
             e.printStackTrace();

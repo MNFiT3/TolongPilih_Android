@@ -41,22 +41,18 @@ public class RegisterActivity extends AppCompatActivity {
             postData.put("password", password.getText());
 
             ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.TEST, postData.toString());
-            String result = serverHandler.get();
-
-            if(!result.equalsIgnoreCase("success")){
-                new Toast(this).makeText(this, "Error Occurred", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            new Toast(this).makeText(this, result, Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
+//            String result = serverHandler.get();
+//
+//            if(!result.equalsIgnoreCase("success")){
+//                new Toast(this).makeText(this, "Error Occurred", Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//
+//            new Toast(this).makeText(this, result, Toast.LENGTH_LONG).show();
+//            startActivity(new Intent(this, LoginActivity.class));
+//            finish();
 
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
             e.printStackTrace();
         }
     }
