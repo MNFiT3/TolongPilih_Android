@@ -153,10 +153,33 @@ public class WheelActivity extends AppCompatActivity {
 
     public void leave (View v){
 
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        intent.putExtra("groupId", groupId);
-        intent.putExtra("token", token);
-        startActivity(intent);
-        finish();
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("groupId", groupId);
+
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.LEAVE_GROUP, postData.toString(), token);
+            JSONObject result = serverHandler.get();
+
+            if(result.getInt("code") >= 300) {
+                new Toast(this).makeText(this, result.getString("body"), Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            new Toast(this).makeText(this, "Successfully Leave Group", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            intent.putExtra("groupId", groupId);
+            intent.putExtra("token", token);
+            startActivity(intent);
+            finish();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
 }
