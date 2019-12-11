@@ -60,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
                 intent.putExtra("groupId", data[0]);
                 intent.putExtra("token", token);
                 startActivity(intent);
+                finish();
             }
         });
         loadGroup();
