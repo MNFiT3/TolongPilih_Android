@@ -40,15 +40,17 @@ public class RegisterActivity extends AppCompatActivity {
             postData.put("username", username.getText());
             postData.put("password", password.getText());
 
-            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.TEST, postData.toString());
-            String result = serverHandler.get();
+            //TODO: Input validation
 
-            if(!result.equalsIgnoreCase("success")){
-                new Toast(this).makeText(this, "Error Occurred", Toast.LENGTH_LONG).show();
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.REGISTER_USER, postData.toString(), "");
+            JSONObject result = serverHandler.get();
+
+            if(result.getInt("code") >= 300) {
+                new Toast(this).makeText(this, result.getString("body"), Toast.LENGTH_LONG).show();
                 return;
             }
 
-            new Toast(this).makeText(this, result, Toast.LENGTH_LONG).show();
+            new Toast(this).makeText(this, "Successfully register", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
 

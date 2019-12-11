@@ -1,8 +1,0 @@
-//let token = localStorage.getItem('token')
-//if (token == null || token == undefined || token == '') {
-//    window.location.href = 'login.html'
-//}
-
-const onLoad = (data) => {
-    document.getElementById('test').innerHTML = data
-}
