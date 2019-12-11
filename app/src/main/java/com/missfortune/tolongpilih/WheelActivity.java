@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class WheelActivity extends AppCompatActivity {
+    private static final String FILENAME = "wheel.html";
     WebView webView;
 
     @Override
@@ -18,9 +19,15 @@ public class WheelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wheel_activity);
         webView = findViewById(R.id.web_view);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("file:///android_asset/wheel.html");
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+
+        //https://gist.github.com/wesleyduff/403fc3a24f5a0f4508ef0e5f55a95ae9
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/" + FILENAME);
+        webView.setWebViewClient(new WebViewClient(){
+            public void onPageFinished(WebView view, String url){
+                //Passing data to JS function
+                webView.loadUrl("javascript:onLoad('" + "Hello World" + "')");
+            }
+        });
     }
 }

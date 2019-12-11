@@ -12,7 +12,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //startActivity(new Intent(this, LoginActivity.class));
-        //startActivity(new Intent(this, WheelActivity.class));
+        //Uncomment one code below to jump to an activity
+
+        //startActivity(new Intent(this, LoginActivity.class)); //LoginActivity
+        //startActivity(new Intent(this, WheelActivity.class)); //WheelActivity
     }
 }
