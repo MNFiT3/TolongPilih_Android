@@ -1,7 +1,7 @@
 package com.missfortune.tolongpilih.config;
 
 public class Globals {
-    public static String API_ENDPOINT   = "http://10.0.2.2:3001/api/mobile";
+    public static String API_ENDPOINT   = "https://tolong-pilih.herokuapp.com/api/mobile";
 
     //Route: tolongpilih
     public static String TEST           = "/tolongpilih/test";
@@ -12,6 +12,7 @@ public class Globals {
     public static String INVITE_USER    = "/tolongpilih/group/invite";
     public static String ADD_ITEM       = "/tolongpilih/group/item/add";
     public static String REMOVE_ITEM    = "/tolongpilih/group/item/remove";
+    public static String LIST_ITEM    = "/tolongpilih/group/item/list";
     public static String TOLONGPILIH    = "/tolongpilih";
 
     //Route: auth
