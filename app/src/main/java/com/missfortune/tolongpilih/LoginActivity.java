@@ -37,10 +37,12 @@ public class LoginActivity extends AppCompatActivity {
             postData.put("email", email.getText());
             postData.put("password", password.getText());
 
+            //TODO: Input validation
+
             ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.LOGIN, postData.toString());
             JSONObject result = serverHandler.get();
 
-            if(result.getInt("code") != 200) {
+            if(result.getInt("code") >= 300) {
                 new Toast(this).makeText(this, result.getString("body"), Toast.LENGTH_LONG).show();
                 return;
             }
