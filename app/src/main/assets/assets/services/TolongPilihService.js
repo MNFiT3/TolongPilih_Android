@@ -3,6 +3,6 @@
 //    window.location.href = 'login.html'
 //}
 
-const onLoad = (data) => {
-    document.getElementById('test').innerHTML = data
+const onLoad = (groupId, token) => {
+    document.getElementById('test').innerHTML = groupId + " " + token
 }

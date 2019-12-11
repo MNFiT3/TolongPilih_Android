@@ -19,5 +19,7 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(new Intent(this, ItemActivity.class)); //ItemActivity
         //startActivity(new Intent(this, GroupActivity.class)); //GroupActivity
         //startActivity(new Intent(this, HomeActivity.class)); //HomeActivity
+
+        finish();
     }
 }

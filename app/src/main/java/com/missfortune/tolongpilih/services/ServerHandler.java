@@ -2,6 +2,8 @@ package com.missfortune.tolongpilih.services;
 
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Log;
+
 import androidx.annotation.RequiresApi;
 
 import com.missfortune.tolongpilih.config.Globals;
@@ -19,7 +21,6 @@ import java.net.URL;
 //https://stackoverflow.com/questions/35390928/how-to-send-json-object-to-the-server-from-my-android-app
 
 public class ServerHandler extends AsyncTask<String, Void, JSONObject> {
-    Session session;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -47,6 +48,8 @@ public class ServerHandler extends AsyncTask<String, Void, JSONObject> {
             }
             InputStreamReader inputStreamReader = new InputStreamReader(in);
 
+
+
             int inputStreamData = inputStreamReader.read();
             while (inputStreamData != -1) {
                 char current = (char) inputStreamData;
@@ -64,6 +67,7 @@ public class ServerHandler extends AsyncTask<String, Void, JSONObject> {
         JSONObject result = new JSONObject();
         try {
             result.put("code", httpURLConnection.getResponseCode());
+            result.put("token", httpURLConnection.getHeaderField("token"));
             result.put("body", data);
         } catch (JSONException e) {
             e.printStackTrace();

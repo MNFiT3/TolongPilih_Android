@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -51,7 +52,16 @@ public class HomeActivity extends AppCompatActivity {
         groupListView = findViewById(R.id.groupListView);
         groupList= new ArrayList<>();
 
-        groupListView.setOnItemClickListener((list, v, pos, id) -> Log.i("test", id + ""));
+        groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String data[] = groupListView.getItemAtPosition(position).toString().split("::");
+
+                Intent intent = new Intent(getApplicationContext(), WheelActivity.class);
+                intent.putExtra("groupId", data[0]);
+                intent.putExtra("token", token);
+                startActivity(intent);
+            }
+        });
         loadGroup();
     }
 
@@ -73,7 +83,8 @@ public class HomeActivity extends AppCompatActivity {
             for(int i = 0; i < array.length(); i++){
                 JSONObject jsonObject = (JSONObject) array.get(i);
                 JSONObject groupObject = new JSONObject(jsonObject.getString("group"));
-                groupList.add(groupObject.getString("id"));
+                String name = groupObject.getString("id") + "::" + groupObject.getString("name");
+                groupList.add(name);
             }
 
             groupListView();

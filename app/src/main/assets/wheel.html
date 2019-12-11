@@ -47,7 +47,6 @@ SOFTWARE.
             top: 0;
             left: 0;
         }
-
     </style>
 
 </head>
@@ -151,11 +150,14 @@ SOFTWARE.
                 pieslice = Math.round(1440 / data.length),
                 rng = Math.floor((Math.random() * 1440) + 360);
 
+                console.log(rng)
+
             rotation = (Math.round(rng / ps) * ps);
 
             picked = Math.round(data.length - (rotation % 360) / ps);
             picked = picked >= data.length ? (picked % data.length) : picked;
 
+            console.log(data[picked])
 
             if (oldpick.indexOf(picked) !== -1) {
                 d3.select(this).call(spin);

@@ -3,6 +3,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,6 +22,11 @@ public class WheelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wheel_activity);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         webView = findViewById(R.id.web_view);
 
         Bundle bundle = getIntent().getExtras();
@@ -36,8 +42,14 @@ public class WheelActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url){
                 //Passing data to JS function
-                webView.loadUrl("javascript:onLoad('" + "Hello World" + "')");
+                webView.loadUrl("javascript:onLoad('" + groupId + "', '" + token + "')");
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
