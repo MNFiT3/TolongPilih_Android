@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             //TODO: Input validation
 
-            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.REGISTER_USER, postData.toString());
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.REGISTER_USER, postData.toString(), "");
             JSONObject result = serverHandler.get();
 
             if(result.getInt("code") >= 300) {

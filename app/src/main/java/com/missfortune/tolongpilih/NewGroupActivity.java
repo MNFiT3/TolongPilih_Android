@@ -3,6 +3,7 @@ package com.missfortune.tolongpilih;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,39 +18,37 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class LoginActivity extends AppCompatActivity {
+public class NewGroupActivity extends AppCompatActivity {
     Session session;
-    ServerHandler serverHandler;
-    EditText email, password;
+
+    EditText groupName;
+
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.new_group_activity);
 
         session = new Session(getApplicationContext());
-        serverHandler = new ServerHandler();
 
-        if(session.isLoggedIn()){
-            startActivity(new Intent(this, HomeActivity.class));
-            finish();
-        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        token = session.userToken();
     }
 
-    public void loginUser(View v) {
-
-
-        email = findViewById(R.id.loginEmail);
-        password = findViewById(R.id.loginPassword);
+    public void createGroup(View v) {
+        groupName = findViewById(R.id.txtGroupName);
 
         JSONObject postData = new JSONObject();
         try {
-            postData.put("email", email.getText());
-            postData.put("password", password.getText());
+            postData.put("name", groupName.getText());
 
             //TODO: Input validation
 
-            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.LOGIN, postData.toString(), "");
+            ServerHandler serverHandler = (ServerHandler) new ServerHandler().execute(Globals.API_ENDPOINT + Globals.CREATE_GROUP, postData.toString(), token);
             JSONObject result = serverHandler.get();
 
             if(result.getInt("code") >= 300) {
@@ -57,10 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            new Toast(this).makeText(this, "Successfully logged in", Toast.LENGTH_LONG).show();
-
-            JSONObject data = new JSONObject(result.getString("body"));
-            session.setLoggedIn(true, data.getString("email"), data.getString("token"));
+            new Toast(this).makeText(this, "Successfully Create Group", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, HomeActivity.class));
             finish();
 
@@ -73,8 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void register(View v){
-        startActivity(new Intent(this, RegisterActivity.class));
+    @Override
+    public boolean onSupportNavigateUp(){
         finish();
+        return true;
     }
 }

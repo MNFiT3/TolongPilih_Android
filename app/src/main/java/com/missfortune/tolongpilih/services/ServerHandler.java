@@ -19,6 +19,8 @@ import java.net.URL;
 //https://stackoverflow.com/questions/35390928/how-to-send-json-object-to-the-server-from-my-android-app
 
 public class ServerHandler extends AsyncTask<String, Void, JSONObject> {
+    Session session;
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected JSONObject doInBackground(String... params) {
@@ -29,6 +31,7 @@ public class ServerHandler extends AsyncTask<String, Void, JSONObject> {
 
             httpURLConnection = (HttpURLConnection) new URL(params[0]).openConnection();
             httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("auth", params[2]);
             httpURLConnection.setDoOutput(true);
 
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
