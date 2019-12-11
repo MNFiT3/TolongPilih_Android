@@ -1,5 +1,13 @@
 package com.missfortune.tolongpilih.entity;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Group {
@@ -43,6 +51,29 @@ public class Group {
 
     public ArrayList<String> getItems() {
         return items;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", this.id);
+            jsonObject.put("name", this.name);
+
+            JSONArray memberArray = new JSONArray();
+            this.members.forEach((n) -> memberArray.put(n));
+
+            JSONArray itemArray = new JSONArray();
+            this.items.forEach((n) -> itemArray.put(n));
+
+            jsonObject.put("members", memberArray);
+            jsonObject.put("items", itemArray);
+
+            return jsonObject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
